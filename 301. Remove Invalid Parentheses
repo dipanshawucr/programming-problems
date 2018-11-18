@@ -1,0 +1,43 @@
+class Solution {
+public:
+    
+    
+    vector<char> sign1 = {'(', ')'};
+    vector<char> sign2 = {')', '('};
+    
+    void removeParentheses(string s, set<string>& ans, int last_i, int last_j,  vector<char>& sign){
+        int counter=0;
+        for(int counter=0,i=last_i; i<s.size(); i++){
+            if(s[i]== sign[0])counter++;
+            else if(s[i] == sign[1]) counter--;
+            
+            if(counter>=0) continue;
+            
+            for(int j=last_j; j<=i; j++){
+                if(s[j]== sign[1])// && (j == last_j || s[j-1] != sign[1]) ) 
+                {
+                    removeParentheses(s.substr(0, j)+s.substr(j+1), ans, i, j, sign);
+                }
+            }
+            return;
+        }
+        
+        //string rev_str=reverse(s.begin(), s.end());
+        //cout<<s<<endl;
+        string rev_str=s;
+        reverse(rev_str.begin(), rev_str.end());
+        
+        if(sign[0]=='(') {
+            removeParentheses(rev_str, ans, 0, 0, sign2);
+        }
+        else {
+            ans.insert(rev_str);
+        }
+    }
+    
+    vector<string> removeInvalidParentheses(string s) {
+        set<string> ans;
+        removeParentheses(s, ans, 0, 0, sign1);
+        return vector<string> (ans.begin(), ans.end());
+    }
+};
