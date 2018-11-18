@@ -1,0 +1,34 @@
+class Solution {
+public:
+    /*
+    Time complexity : O(n)
+
+Although the time complexity appears to be quadratic due to the while loop nested within the for loop, closer inspection reveals it to be linear. Because the while loop is reached only when currentNum marks the beginning of a sequence (i.e. currentNum-1 is not present in nums), the while loop can only run for nn iterations throughout the entire runtime of the algorithm. This means that despite looking like O(n⋅n) complexity, the nested loops actually run in O(n+n)=O(n) time. All other computations occur in constant time, so the overall runtime is linear.
+
+Space complexity : O(n)
+
+In order to set up O(1) containment lookups, we allocate linear space for a hash table to store the O(n) numbers in nums. Other than that, the space complexity is identical to that of the brute force solution.
+    */
+    int longestConsecutive(vector<int>& nums) {
+        
+        unordered_map<int, int> mymap;
+        for(auto n:nums) mymap[n]=1;
+        int element, element_count=0;
+        int longest_element_count=0;
+        for(auto n:nums){
+            if(mymap[n-1]!=1){
+                element=n;
+                element_count=1;
+                
+                while(mymap[element+1]==1){
+                    element=element+1;
+                    element_count++;
+                }
+            }
+            
+            longest_element_count = max(longest_element_count, element_count);
+        }
+        
+        return longest_element_count;
+    }
+};
