@@ -1,0 +1,63 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        
+        int leftmax=0, rightmax=0;
+        int rain=0;
+        int l=0, r=height.size()-1;
+        
+        while(l<r){
+            
+            if(height[l]<height[r]){
+                if(height[l]>leftmax) {
+                    leftmax=height[l];
+                }else{
+                    rain+=leftmax-height[l];
+                }
+                l++;
+            }else{
+                if(height[r]>rightmax) {
+                    rightmax=height[r];
+                }else{
+                    rain+=rightmax-height[r];
+                }
+                r--;
+            }
+            
+        }
+        
+        return rain;
+        
+        
+        /*
+        int maxarea=0;
+        int totalarea=0;
+        int negarea=0;
+        int i=0, j=height.size()-1;
+       
+        while(i<j){
+            
+            int minheight=min(height[i], height[j]);
+            negarea=0;
+            for(int k=i+1; k<j; k++) {
+                if(height[k]<minheight){
+                    negarea+=height[k];
+                    //cout<<height[k]<<" ";
+                }else{
+                    negarea+=minheight;
+                    //cout<<minheight<<" ";
+                }
+                //cout<<negarea<<" ";
+                
+            }
+            cout<<endl;
+            int area = minheight*(j-i-1) - negarea;
+            //cout<<i<<" "<<j<<" "<<area<<" "<<minheight*(j-i-1)<<" "<<negarea<<endl;
+            cout<<area<<endl;
+            maxarea= max(maxarea, area);
+            height[i] > height [j] ? --j: ++i;
+        }
+        
+        return totalarea;*/
+    }
+};
