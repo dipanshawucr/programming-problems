@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> anagramMappings(vector<int>& A, vector<int>& B) {
+        vector<int> res;
+        unordered_map<int, int> mymap;
+        for(int i=0; i<B.size(); i++){
+            mymap[B[i]]=i;
+        }
+        for(auto a:A){
+            res.push_back(mymap[a]);
+        }
+        
+        return res;
+        
+    }
+};
