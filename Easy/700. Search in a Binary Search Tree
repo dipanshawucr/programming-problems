@@ -1,0 +1,27 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void traverse(TreeNode* root, int val, TreeNode*& res){
+        if(root==NULL) return;
+        
+        if(root->val==val) {
+            res=root;
+            return;
+        }
+        traverse(root->left, val, res);
+        traverse(root->right, val, res);
+    }
+    TreeNode* searchBST(TreeNode* root, int val) {
+        TreeNode* res=NULL;
+        traverse(root, val, res);
+        return res;
+    }
+};
