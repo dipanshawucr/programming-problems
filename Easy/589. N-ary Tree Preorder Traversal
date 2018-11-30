@@ -1,0 +1,79 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    vector<Node*> children;
+
+    Node() {}
+
+    Node(int _val, vector<Node*> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+class Solution {
+public:
+    vector<int> preorder(Node* root) {
+        vector<int> res;
+        traverse(root, res);
+        return res;
+    }
+    
+    void traverse(Node* root, vector<int>& res){
+        if(root==NULL) return;
+        
+        res.push_back(root->val);
+        
+        for(auto c:root->children){
+            traverse(c, res);
+        }
+    }
+    
+    
+    //Google: Distance between two nodes of a n-ary tree
+    //https://leetcode.com/discuss/interview-question/175828/Google%3A-Distance-between-two-nodes-of-a-n-ary-tree/
+    int getDistance(Node* root, int a, int b){
+        vector<int> path1;
+        int flag=0;
+        getPath(root,path1,a,flag);
+        
+        vector<int> path2;
+        flag=0;
+        getPath(root,path2,b,flag);
+        
+        int i=0;
+        while(path1[i]==path2[i]) {
+            i++;
+            continue;
+        }
+        
+        //cout<<path1.size()<<" "<<path2.size()<<" "<<i<<endl;
+        int dis=path1.size()-i + path2.size()-i;
+        cout<<dis<<endl;
+        return dis;
+    }
+    
+    void getPath(Node* root, vector<int>& path, int n, int& flag){
+        
+        if(root==NULL) return;
+
+        if(flag==0) path.push_back(root->val);
+        
+        if(root->val==n || flag==1) {
+            flag=1;
+            return;
+        }
+        
+        for(auto c:root->children){
+            getPath(c, path, n, flag);
+        }
+        
+       if(flag==0) path.pop_back();
+        
+    }
+    
+    
+    
+};
