@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> res;
+        unordered_map<int, int> mymap;
+        for(int i=0; i<nums.size(); i++) {
+            if(mymap[target-nums[i]]!=0) {
+                res.push_back(mymap[target-nums[i]]-1);
+                res.push_back(i);
+                break;
+            }
+            mymap[nums[i]]=i+1; //store the index+1 instead of index value in mymap. So that you can use !=0 as seen value 
+        }
+        
+        return res;
+    }
+};
