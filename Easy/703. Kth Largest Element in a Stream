@@ -1,0 +1,26 @@
+class KthLargest {
+public:
+    priority_queue<int, vector<int>, std::greater<int> > pq;
+    int size;
+    KthLargest(int k, vector<int> nums) {
+        for(int i=0; i<nums.size(); i++){
+            pq.push(nums[i]);
+        }
+        while(pq.size()>k){
+            pq.pop();
+        }
+        
+        size=k;
+    }
+    
+    int add(int val) {
+        
+        if(pq.size()<size) {pq.push(val); return pq.top();}
+        if(pq.top()>=val) return pq.top();
+        else {
+            pq.push(val);
+            pq.pop();
+            return pq.top();
+        }
+    }
+};
